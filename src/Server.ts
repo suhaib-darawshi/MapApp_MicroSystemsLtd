@@ -13,7 +13,7 @@ import { CustomSocketService } from "./services/CustomSocketService";
 @Configuration({
   ...config,
   acceptMimes: ["application/json"],
-  httpPort: process.env.PORT || 8083,
+  httpPort: parseInt(process.env.PORT??"8083"),
   httpsPort: false,
   disableComponentsScan: true,
   typeorm: {
