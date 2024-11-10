@@ -6,6 +6,7 @@ const typeorm_1 = require("typeorm");
 let MapLocation = class MapLocation {
     id;
     name;
+    category;
     latitude;
     longitude;
     createdAt;
@@ -20,6 +21,10 @@ tslib_1.__decorate([
     (0, typeorm_1.Column)(),
     tslib_1.__metadata("design:type", String)
 ], MapLocation.prototype, "name", void 0);
+tslib_1.__decorate([
+    (0, typeorm_1.Column)({ collation: "utf8_general_ci" }),
+    tslib_1.__metadata("design:type", String)
+], MapLocation.prototype, "category", void 0);
 tslib_1.__decorate([
     (0, typeorm_1.Column)("double"),
     tslib_1.__metadata("design:type", Number)

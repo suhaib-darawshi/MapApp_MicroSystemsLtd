@@ -26,7 +26,7 @@ export class CustomSocketService {
         this.clients.set(data.id, socket);
     });
     socket.on("View Changed",async(data:any)=>{
-      const locations=await this.locationService.getLocations(data.northeast,data.southwest);
+      const locations=await this.locationService.getLocations(data.northeast,data.southwest,data.category);
       if(locations.length!=0){
         socket.emit("New Locations",locations);
       }

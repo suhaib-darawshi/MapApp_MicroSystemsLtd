@@ -10,11 +10,12 @@ let LocationsService = class LocationsService {
     async createLocation(data) {
         return await this.locationRepo.save(data);
     }
-    async getLocations(northeast, southwest) {
+    async getLocations(northeast, southwest, category) {
         return await this.locationRepo.find({
             where: {
                 latitude: (0, typeorm_1.Between)(southwest.latitude, northeast.latitude),
                 longitude: (0, typeorm_1.Between)(southwest.longitude, northeast.longitude),
+                category: (0, typeorm_1.ILike)(`%${category}%`)
             },
         });
     }

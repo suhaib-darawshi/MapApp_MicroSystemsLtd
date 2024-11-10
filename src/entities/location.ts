@@ -10,6 +10,9 @@ export class MapLocation{
     @Column() 
     name!: string;
 
+    @Column({ collation: "utf8_general_ci" })
+    category: string;
+
     @Column("double")
     latitude!:number;
 
