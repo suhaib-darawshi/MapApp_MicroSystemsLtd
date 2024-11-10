@@ -13,6 +13,7 @@ class AppProvider extends ChangeNotifier {
   LatLngBounds? currentView;
   List<LatLngBounds> viewedBounds = [];
   bool loading = true;
+  String searchText = "";
   AppProvider() {
     SocketService.socketService.onNewLocations = (List data) {
       markers.addAll(data.map((e) => Marker(
@@ -110,16 +111,26 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  searchMarkers(String text) {
+    searchText = text;
+    markers.clear();
+    getMarkers(currentView!);
+    notifyListeners();
+  }
+
   getMarkers(LatLngBounds view) {
-    SocketService.socketService.viewChanged(<String, dynamic>{
-      "northeast": {
-        "latitude": view.northeast.latitude,
-        "longitude": view.northeast.longitude
-      },
-      "southwest": {
-        "latitude": view.southwest.latitude,
-        "longitude": view.southwest.longitude
-      }
-    });
+    if (searchText.isNotEmpty) {
+      SocketService.socketService.viewChanged(<String, dynamic>{
+        "northeast": {
+          "latitude": view.northeast.latitude,
+          "longitude": view.northeast.longitude
+        },
+        "southwest": {
+          "latitude": view.southwest.latitude,
+          "longitude": view.southwest.longitude
+        },
+        "category": searchText
+      });
+    }
   }
 }
